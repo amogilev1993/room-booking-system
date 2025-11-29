@@ -1,0 +1,542 @@
+/* ===== Переменные цветов ===== */
+:root {
+  --booking-purple: #9b59b6;
+  --booking-blue: #3498db;
+  --booking-teal: #1abc9c;
+  --booking-orange: #e67e22;
+  --booking-pink: #e91e63;
+  --booking-yellow: #f0e68c;
+  --booking-own: #27ae60;
+  --primary-color: #1e88e5;
+  --border-color: #e5e7eb;
+  --bg-sidebar: #fafafa;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --today-bg: #1e88e5;
+  --selected-bg: #e3f2fd;
+  --weekend-color: #9ca3af;
+  --week-highlight: #e3f2fd;
+}
+
+/* ===== Основной layout ===== */
+.schedule-page {
+  display: flex;
+  height: calc(100vh - 70px);
+  background: #fff;
+  overflow: hidden;
+}
+
+.schedule-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 70px);
+  font-size: 18px;
+  color: var(--text-secondary);
+}
+
+.schedule-error {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 0 16px 16px;
+}
+
+/* ===== Боковая панель с мини-календарём ===== */
+.schedule-sidebar {
+  width: 280px;
+  min-width: 280px;
+  padding: 20px;
+  border-right: 1px solid var(--border-color);
+  background: var(--bg-sidebar);
+  overflow-y: auto;
+}
+
+/* ===== Мини-календарь ===== */
+.mini-calendar {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mini-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.mini-calendar-header span {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: capitalize;
+}
+
+.mini-calendar-header button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--text-secondary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.mini-calendar-header button:hover {
+  background: var(--border-color);
+  color: var(--text-primary);
+}
+
+.mini-calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.mini-calendar-weekdays span {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 4px;
+}
+
+.mini-calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.mini-calendar-day {
+  aspect-ratio: 1;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: all 0.2s;
+}
+
+.mini-calendar-day:hover:not(.empty):not(.selected) {
+  background: var(--border-color);
+}
+
+.mini-calendar-day.empty {
+  cursor: default;
+}
+
+.mini-calendar-day.weekend {
+  color: var(--weekend-color);
+}
+
+.mini-calendar-day.today {
+  background: var(--today-bg);
+  color: #fff;
+  font-weight: 600;
+}
+
+.mini-calendar-day.selected:not(.today) {
+  background: var(--selected-bg);
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.mini-calendar-day.in-week:not(.today):not(.selected) {
+  background: var(--week-highlight);
+}
+
+/* ===== Селектор комнаты ===== */
+.room-selector {
+  margin-top: 20px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.room-selector label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.room-selector select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text-primary);
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.room-selector select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.room-selector select:hover {
+  border-color: var(--primary-color);
+}
+
+/* ===== Основная область ===== */
+.schedule-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ===== Верхняя панель ===== */
+.schedule-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-color);
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.view-switcher {
+  display: flex;
+  background: var(--border-color);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.view-switcher button {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.view-switcher button.active {
+  background: #fff;
+  color: var(--text-primary);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.view-switcher button:hover:not(.active) {
+  color: var(--text-primary);
+}
+
+.date-navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.date-navigation button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-color);
+  background: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--text-secondary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.date-navigation button:hover {
+  background: var(--border-color);
+  color: var(--text-primary);
+}
+
+.date-range {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 200px;
+  text-align: center;
+}
+
+.today-btn {
+  padding: 8px 20px;
+  border: 1px solid var(--primary-color);
+  background: #fff;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.today-btn:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+/* ===== Сетка расписания ===== */
+.schedule-grid-container {
+  flex: 1;
+  overflow: auto;
+  padding: 0;
+}
+
+.schedule-grid {
+  display: flex;
+  flex-direction: column;
+  min-width: max-content;
+}
+
+/* ===== Заголовок сетки ===== */
+.grid-header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.time-column-header {
+  width: 70px;
+  min-width: 70px;
+  border-right: 1px solid var(--border-color);
+}
+
+.column-header {
+  flex: 1;
+  min-width: 120px;
+  padding: 12px 16px;
+  text-align: center;
+  border-right: 1px solid var(--border-color);
+  background: #fff;
+}
+
+.column-header:last-child {
+  border-right: none;
+}
+
+.column-header.weekend {
+  background: #fafafa;
+}
+
+.column-header.today {
+  background: #e3f2fd;
+}
+
+.header-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.header-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.header-weekday {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.header-day-number {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 4px;
+}
+
+.header-day-number.today {
+  background: var(--today-bg);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px auto 0;
+}
+
+/* ===== Тело сетки ===== */
+.grid-body {
+  display: flex;
+  position: relative;
+}
+
+/* ===== Колонка времени ===== */
+.time-column {
+  width: 70px;
+  min-width: 70px;
+  border-right: 1px solid var(--border-color);
+  background: var(--bg-sidebar);
+  position: sticky;
+  left: 0;
+  z-index: 5;
+}
+
+.time-slot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-right: 12px;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.time-slot span {
+  font-size: 12px;
+  color: var(--text-secondary);
+  transform: translateY(-8px);
+  background: var(--bg-sidebar);
+  padding: 0 4px;
+}
+
+/* ===== Колонка данных (комната или день) ===== */
+.data-column {
+  flex: 1;
+  min-width: 120px;
+  position: relative;
+  border-right: 1px solid var(--border-color);
+}
+
+.data-column:last-child {
+  border-right: none;
+}
+
+.data-column.weekend {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.hour-cell {
+  border-bottom: 1px solid var(--border-color);
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.hour-cell:hover {
+  background: rgba(124, 58, 237, 0.05);
+}
+
+/* ===== Бронирования ===== */
+.bookings-overlay {
+  position: absolute;
+  top: 0;
+  left: 4px;
+  right: 4px;
+  pointer-events: none;
+}
+
+.booking-block {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: var(--booking-color, rgba(155, 89, 182, 0.5));
+  border-radius: 6px;
+  padding: 6px 10px;
+  overflow: hidden;
+  cursor: pointer;
+  pointer-events: auto;
+  border-left: 4px solid var(--booking-border-color, #7d3c98);
+  transition: transform 0.15s, box-shadow 0.15s;
+  backdrop-filter: blur(2px);
+}
+
+.booking-block:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.booking-block.own {
+  background: rgba(39, 174, 96, 0.5);
+  border-left-color: #1e8449;
+}
+
+.booking-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.booking-time {
+  font-size: 11px;
+  color: #374151;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+/* ===== Адаптивность ===== */
+@media (max-width: 1024px) {
+  .schedule-sidebar {
+    width: 240px;
+    min-width: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .schedule-page {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .schedule-sidebar {
+    width: 100%;
+    min-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px;
+  }
+  
+  .mini-calendar {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  
+  .schedule-toolbar {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px 16px;
+  }
+  
+  .date-range {
+    min-width: auto;
+  }
+  
+  .room-header {
+    min-width: 140px;
+  }
+  
+  .room-column {
+    min-width: 140px;
+  }
+}

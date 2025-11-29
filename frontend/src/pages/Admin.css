@@ -1,0 +1,77 @@
+.admin-container {
+  padding: 20px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.admin-form {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rooms-list {
+  display: grid;
+  gap: 16px;
+}
+
+.room-item {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.room-item h3 {
+  color: #007bff;
+  margin-bottom: 8px;
+}
+
+.room-item .description {
+  color: #666;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.bookings-table {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.bookings-table th, .bookings-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.bookings-table thead {
+  background: #f8f9fa;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.booking-info {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 4px;
+  margin: 16px 0;
+}
+
+.booking-info p {
+  margin: 8px 0;
+}
