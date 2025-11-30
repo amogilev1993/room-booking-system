@@ -236,8 +236,28 @@ const Schedule = () => {
 
   return (
     <div className="schedule-page">
-      {/* Левая панель с календарём */}
+      {/* Левая панель с выбором аудитории и календарём */}
       <aside className="schedule-sidebar">
+        {/* Выбор комнаты для режима "Неделя" */}
+        {viewMode === 'week' && (
+          <div className="room-selector">
+            <label>Аудитория:</label>
+            <select 
+              value={selectedRoom?.id || ''} 
+              onChange={(e) => {
+                const room = rooms.find(r => r.id === Number(e.target.value));
+                setSelectedRoom(room);
+              }}
+            >
+              {rooms.map(room => (
+                <option key={room.id} value={room.id}>
+                  {room.name} ({room.capacity} чел.)
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         <div className="mini-calendar">
           <div className="mini-calendar-header">
             <button onClick={() => setCalendarMonth(new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1))}>
@@ -268,26 +288,6 @@ const Schedule = () => {
             ))}
           </div>
         </div>
-
-        {/* Выбор комнаты для режима "Неделя" */}
-        {viewMode === 'week' && (
-          <div className="room-selector">
-            <label>Аудитория:</label>
-            <select 
-              value={selectedRoom?.id || ''} 
-              onChange={(e) => {
-                const room = rooms.find(r => r.id === Number(e.target.value));
-                setSelectedRoom(room);
-              }}
-            >
-              {rooms.map(room => (
-                <option key={room.id} value={room.id}>
-                  {room.name} ({room.capacity} чел.)
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
       </aside>
 
       {/* Основная область */}
