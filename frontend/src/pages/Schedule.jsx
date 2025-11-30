@@ -17,6 +17,8 @@ const Schedule = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [calendarMonth, setCalendarMonth] = useState(new Date());
+  const [hoveredBooking, setHoveredBooking] = useState(null);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
   // Вычисляем дни недели для режима "Неделя"
   const weekDays = useMemo(() => {
@@ -140,6 +142,20 @@ const Schedule = () => {
     const goldenRatio = 0.618033988749895;
     const hue = ((roomId * goldenRatio) % 1) * 360;
     return `hsl(${hue}, 70%, 40%)`;
+  };
+
+  // Обработка наведения на бронирование
+  const handleBookingMouseEnter = (e, booking, room) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setTooltipPosition({
+      x: rect.left + rect.width / 2,
+      y: rect.top - 10
+    });
+    setHoveredBooking({ ...booking, roomName: room.name });
+  };
+
+  const handleBookingMouseLeave = () => {
+    setHoveredBooking(null);
   };
 
   // Обработка клика по ячейке
@@ -387,7 +403,8 @@ const Schedule = () => {
                             '--booking-color': getRoomColor(room.id),
                             '--booking-border-color': getRoomBorderColor(room.id),
                           }}
-                          title={`${booking.purpose || 'Бронирование'}\n${booking.user_name}\n${booking.start_time} - ${booking.end_time}`}
+                          onMouseEnter={(e) => handleBookingMouseEnter(e, booking, room)}
+                          onMouseLeave={handleBookingMouseLeave}
                         >
                           <div className="booking-title">{booking.purpose || 'Бронирование'}</div>
                           <div className="booking-time">{booking.start_time} - {booking.end_time}</div>
@@ -423,7 +440,8 @@ const Schedule = () => {
                               '--booking-color': getRoomColor(selectedRoom.id),
                               '--booking-border-color': getRoomBorderColor(selectedRoom.id),
                             }}
-                            title={`${booking.purpose || 'Бронирование'}\n${booking.user_name}\n${booking.start_time} - ${booking.end_time}`}
+                            onMouseEnter={(e) => handleBookingMouseEnter(e, booking, selectedRoom)}
+                            onMouseLeave={handleBookingMouseLeave}
                           >
                             <div className="booking-title">{booking.purpose || 'Бронирование'}</div>
                             <div className="booking-time">{booking.start_time} - {booking.end_time}</div>
@@ -446,6 +464,40 @@ const Schedule = () => {
           onClose={() => setShowModal(false)}
           onSuccess={handleBookingSuccess}
         />
+      )}
+
+      {/* Tooltip при наведении на бронирование */}
+      {hoveredBooking && (
+        <div 
+          className="booking-tooltip"
+          style={{
+            left: tooltipPosition.x,
+            top: tooltipPosition.y
+          }}
+        >
+          <div className="tooltip-header">
+            <span className="tooltip-room">{hoveredBooking.roomName}</span>
+          </div>
+          <div className="tooltip-content">
+            <div className="tooltip-row">
+              <span className="tooltip-icon">🕐</span>
+              <span>{hoveredBooking.start_time} - {hoveredBooking.end_time}</span>
+            </div>
+            <div className="tooltip-row">
+              <span className="tooltip-icon">👤</span>
+              <span>{hoveredBooking.user_name || 'Не указан'}</span>
+            </div>
+            {hoveredBooking.purpose && (
+              <div className="tooltip-row">
+                <span className="tooltip-icon">📝</span>
+                <span>{hoveredBooking.purpose}</span>
+              </div>
+            )}
+            {hoveredBooking.is_own && (
+              <div className="tooltip-badge own">Ваше бронирование</div>
+            )}
+          </div>
+        </div>
       )}
     </div>
   );
