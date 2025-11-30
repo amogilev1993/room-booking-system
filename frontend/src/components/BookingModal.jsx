@@ -82,7 +82,7 @@ const BookingModal = ({ room, date, onClose, onSuccess }) => {
             <span className="room-capacity">👥 {room.capacity} чел.</span>
             {room.floor && <span className="room-floor">📍 {room.floor} этаж</span>}
           </div>
-          {room.equipment && room.equipment.length > 0 && (
+          {Array.isArray(room.equipment) && room.equipment.length > 0 && (
             <div className="room-equipment">
               <span className="equipment-label">Оборудование:</span>
               <div className="equipment-list">
