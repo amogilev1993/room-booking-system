@@ -45,8 +45,8 @@
 
 /* ===== Боковая панель с мини-календарём ===== */
 .schedule-sidebar {
-  width: 320px;
-  min-width: 320px;
+  width: 340px;
+  min-width: 340px;
   padding: 16px;
   border-right: 1px solid var(--border-color);
   background: var(--bg-sidebar);
