@@ -10,8 +10,15 @@ const AdminBookings = () => {
   }, []);
 
   const loadBookings = async () => {
-    const response = await adminBookingsAPI.list({ status: 'active' });
-    setBookings(response.data);
+    try {
+      const response = await adminBookingsAPI.list({ status: 'active' });
+      // API может вернуть массив или объект с results (пагинация)
+      const data = response.data.results || response.data;
+      setBookings(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error('Ошибка загрузки бронирований:', err);
+      setBookings([]);
+    }
   };
 
   const handleCancel = async (id) => {
