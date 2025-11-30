@@ -80,7 +80,7 @@ const BookingModal = ({ room, date, onClose, onSuccess }) => {
         <div className="room-info-block">
           <div className="room-details">
             <span className="room-capacity">👥 {room.capacity} чел.</span>
-            {room.floor && <span className="room-floor">📍 Этаж {room.floor}</span>}
+            {room.floor && <span className="room-floor">📍 {room.floor} этаж</span>}
           </div>
           {room.equipment && room.equipment.length > 0 && (
             <div className="room-equipment">

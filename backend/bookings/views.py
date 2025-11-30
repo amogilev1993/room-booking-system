@@ -111,7 +111,6 @@ class ScheduleView(generics.GenericAPIView):
                 'capacity': room.capacity,
                 'description': room.description,
                 'floor': room.floor,
-                'equipment': room.equipment,
                 'bookings': room_bookings
             })
         
