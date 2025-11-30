@@ -45,9 +45,9 @@
 
 /* ===== Боковая панель с мини-календарём ===== */
 .schedule-sidebar {
-  width: 280px;
-  min-width: 280px;
-  padding: 20px;
+  width: 300px;
+  min-width: 300px;
+  padding: 16px;
   border-right: 1px solid var(--border-color);
   background: var(--bg-sidebar);
   overflow-y: auto;
@@ -57,7 +57,7 @@
 .mini-calendar {
   background: #fff;
   border-radius: 12px;
-  padding: 16px;
+  padding: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -112,11 +112,12 @@
 .mini-calendar-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
+  gap: 4px;
 }
 
 .mini-calendar-day {
-  aspect-ratio: 1;
+  width: 32px;
+  height: 32px;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -127,6 +128,7 @@
   justify-content: center;
   color: var(--text-primary);
   transition: all 0.2s;
+  margin: 0 auto;
 }
 
 .mini-calendar-day:hover:not(.empty):not(.selected) {
@@ -498,8 +500,14 @@
 /* ===== Адаптивность ===== */
 @media (max-width: 1024px) {
   .schedule-sidebar {
-    width: 240px;
-    min-width: 240px;
+    width: 280px;
+    min-width: 280px;
+  }
+  
+  .mini-calendar-day {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
   }
 }
 
