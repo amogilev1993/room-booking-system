@@ -13,9 +13,12 @@ const MyBookings = () => {
   const loadBookings = async () => {
     try {
       const response = await bookingsAPI.my({ future_only: true, status: 'active' });
-      setBookings(response.data.bookings);
+      // API может вернуть bookings напрямую, или results (пагинация), или массив
+      const data = response.data.bookings || response.data.results || response.data;
+      setBookings(Array.isArray(data) ? data : []);
     } catch (err) {
-      console.error(err);
+      console.error('Ошибка загрузки бронирований:', err);
+      setBookings([]);
     } finally {
       setLoading(false);
     }
