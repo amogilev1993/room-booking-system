@@ -45,8 +45,8 @@
 
 /* ===== Боковая панель с мини-календарём ===== */
 .schedule-sidebar {
-  width: 300px;
-  min-width: 300px;
+  width: 320px;
+  min-width: 320px;
   padding: 16px;
   border-right: 1px solid var(--border-color);
   background: var(--bg-sidebar);
@@ -112,12 +112,12 @@
 .mini-calendar-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: 2px;
 }
 
 .mini-calendar-day {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -128,7 +128,6 @@
   justify-content: center;
   color: var(--text-primary);
   transition: all 0.2s;
-  margin: 0 auto;
 }
 
 .mini-calendar-day:hover:not(.empty):not(.selected) {
