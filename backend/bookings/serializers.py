@@ -95,6 +95,7 @@ class ScheduleRoomSerializer(serializers.Serializer):
     capacity = serializers.IntegerField()
     description = serializers.CharField(required=False, allow_null=True)
     floor = serializers.IntegerField(required=False, allow_null=True)
+    equipment = serializers.ListField(required=False, allow_null=True)
     bookings = ScheduleSlotSerializer(many=True)
 
 

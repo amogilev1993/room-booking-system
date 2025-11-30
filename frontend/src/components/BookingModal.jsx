@@ -75,6 +75,30 @@ const BookingModal = ({ room, date, onClose, onSuccess }) => {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <h3>Бронирование: {room.name}</h3>
+        
+        {/* Информация об аудитории */}
+        <div className="room-info-block">
+          <div className="room-details">
+            <span className="room-capacity">👥 {room.capacity} чел.</span>
+            {room.floor && <span className="room-floor">📍 Этаж {room.floor}</span>}
+          </div>
+          {room.equipment && room.equipment.length > 0 && (
+            <div className="room-equipment">
+              <span className="equipment-label">Оборудование:</span>
+              <div className="equipment-list">
+                {room.equipment.map((item, idx) => (
+                  <span key={idx} className="equipment-tag">
+                    {typeof item === 'string' ? item : item.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          {room.description && (
+            <p className="room-description">{room.description}</p>
+          )}
+        </div>
+
         <form onSubmit={handleSubmit}>
           {error && <div className="error-message">{error}</div>}
           <div className="form-group">
