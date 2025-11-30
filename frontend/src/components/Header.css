@@ -76,3 +76,52 @@
 .btn-logout:hover {
   background: #c82333;
 }
+
+/* ===== Адаптивность ===== */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 12px;
+    height: 56px;
+  }
+  
+  .logo h1 {
+    font-size: 20px;
+  }
+  
+  .nav {
+    display: none;
+  }
+  
+  .user-section {
+    gap: 8px;
+  }
+  
+  .user-name {
+    display: none;
+  }
+  
+  .admin-badge {
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+  
+  .btn-logout {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    height: 50px;
+  }
+  
+  .logo h1 {
+    font-size: 18px;
+  }
+  
+  .btn-logout {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}

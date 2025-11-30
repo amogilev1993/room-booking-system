@@ -515,6 +515,7 @@
   .schedule-page {
     flex-direction: column;
     height: auto;
+    min-height: calc(100vh - 60px);
   }
   
   .schedule-sidebar {
@@ -523,28 +524,189 @@
     border-right: none;
     border-bottom: 1px solid var(--border-color);
     padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .room-selector {
+    margin-bottom: 0;
+    padding: 14px;
+    order: -1;
+  }
+  
+  .room-selector label {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  
+  .room-selector select {
+    padding: 10px 12px;
+    font-size: 14px;
   }
   
   .mini-calendar {
-    max-width: 320px;
-    margin: 0 auto;
+    max-width: 100%;
+    padding: 10px;
+  }
+  
+  .mini-calendar-header {
+    margin-bottom: 12px;
+  }
+  
+  .mini-calendar-header span {
+    font-size: 14px;
+  }
+  
+  .mini-calendar-day {
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
   }
   
   .schedule-toolbar {
     flex-wrap: wrap;
-    gap: 12px;
-    padding: 12px 16px;
+    gap: 10px;
+    padding: 12px;
+    justify-content: center;
+  }
+  
+  .view-switcher {
+    order: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .view-switcher button {
+    flex: 1;
+    max-width: 120px;
+  }
+  
+  .date-navigation {
+    order: 2;
+    width: 100%;
+    justify-content: center;
   }
   
   .date-range {
     min-width: auto;
+    font-size: 14px;
   }
   
-  .room-header {
-    min-width: 140px;
+  .today-btn {
+    order: 3;
+    padding: 8px 16px;
+    font-size: 13px;
   }
   
-  .room-column {
-    min-width: 140px;
+  .schedule-grid-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .column-header {
+    min-width: 100px;
+    padding: 10px 8px;
+  }
+  
+  .header-title {
+    font-size: 12px;
+  }
+  
+  .header-subtitle {
+    font-size: 10px;
+  }
+  
+  .header-weekday {
+    font-size: 11px;
+  }
+  
+  .header-day-number {
+    font-size: 20px;
+  }
+  
+  .header-day-number.today {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .data-column {
+    min-width: 100px;
+  }
+  
+  .time-column {
+    width: 50px;
+    min-width: 50px;
+  }
+  
+  .time-slot span {
+    font-size: 10px;
+  }
+  
+  .booking-block {
+    padding: 4px 6px;
+  }
+  
+  .booking-title {
+    font-size: 11px;
+  }
+  
+  .booking-time {
+    font-size: 9px;
+  }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 480px) {
+  .schedule-sidebar {
+    padding: 8px;
+  }
+  
+  .room-selector {
+    padding: 12px;
+  }
+  
+  .mini-calendar {
+    padding: 8px;
+  }
+  
+  .mini-calendar-day {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  
+  .schedule-toolbar {
+    padding: 10px 8px;
+    gap: 8px;
+  }
+  
+  .view-switcher button {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  
+  .date-navigation button {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .date-range {
+    font-size: 13px;
+  }
+  
+  .column-header {
+    min-width: 80px;
+    padding: 8px 4px;
+  }
+  
+  .data-column {
+    min-width: 80px;
+  }
+  
+  .time-column {
+    width: 40px;
+    min-width: 40px;
   }
 }
