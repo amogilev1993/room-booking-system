@@ -3,7 +3,8 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+  background: linear-gradient(135deg, rgba(30, 30, 30, 0.85) 0%, rgba(20, 20, 20, 0.9) 100%),
+              url('/auth-bg.jpg') center/cover no-repeat fixed;
 }
 
 .auth-box {
